@@ -1,10 +1,12 @@
 aws s3 cp s3://support.elasticmapreduce/training/datasets/wikistats/ s3://ms-nyc-taxy-dataset/ --recursive
 
 # NewYork Taxi datasets 2020
-Data Set Link: https://data.cityofnewyork.us/Transportation/2020-Yellow-Taxi-Trip-Data/kxp8-n2sj
+
+DataSet link: https://data.cityofnewyork.us/api/views/sp7n-275u/rows.csv?accessType=DOWNLOAD
+
 
 # Recommend to this on EC2 machine with aws-cli configured.
-- curl -O https://data.cityofnewyork.us/api/views/kxp8-n2sj/rows.csv?accessType=DOWNLOAD
+- curl -O https://data.cityofnewyork.us/api/views/sp7n-275u/rows.csv?accessType=DOWNLOAD
 - mkdir dataset
 - mv rows.csv dataset/
 # Uplaod rows.csv to S3
