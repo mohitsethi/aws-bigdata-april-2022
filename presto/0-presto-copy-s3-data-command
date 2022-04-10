@@ -10,5 +10,5 @@ DataSet link: https://data.cityofnewyork.us/api/views/sp7n-275u/rows.csv?accessT
 - mkdir dataset
 - mv rows.csv dataset/
 # Uplaod rows.csv to S3
-- aws s3 cp ./dataset/ s3://ms-nycdataset/ --recursive
+- aws s3 cp ./dataset/ s3://ms-nyc-taxy-dataset/ --recursive
 - aws s3 cp s3://nycdataset/ s3://ms-nycdataset/ --recursive
