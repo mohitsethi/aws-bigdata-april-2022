@@ -29,3 +29,9 @@ CREATE TABLE hive.nyc_taxi_text.tlc_yellow_medallion (
 WITH (FORMAT = 'CSV',
     EXTERNAL_LOCATION = 's3://ms-nyc-taxy-dataset/')
 ;
+
+
+select * from hive.nyc_taxi_text.tlc_yellow_medallion;
+
+select count(*) from hive.nyc_taxi_text.tlc_yellow_medallion;
+
