@@ -1,10 +1,10 @@
-CREATE EXTERNAL TABLE IF NOT EXISTS coffee.CardStatuses(
+CREATE TABLE IF NOT EXISTS coffee.CardStatuses(
   Status Varchar(20))
 LOCATION 's3://ms-athena-data/'
 
 drop table coffee.CardStatuses
 
-CREATE EXTERNAL TABLE IF NOT EXISTS coffee.CardTypes(
+CREATE TABLE IF NOT EXISTS coffee.CardTypes(
   Type Varchar(20))
 LOCATION 's3://ms-athena-data/'
 
@@ -105,4 +105,63 @@ DROP TABLE COFFEE.ThirdPartyData;
 
 SELECT * FROM COFFEE.ThirdPartyData;
 
+-- Create Tables 
 
+CREATE TABLE coffee.CardStatuses(
+	Status string
+)
+
+CREATE EXTERNAL TABLE IF NOT EXISTS  coffee.CardStatuses(
+  Status string
+) LOCATION 's3://ms-athena-data/empty/cardstatus'
+
+drop table coffee.CardStatuses;
+select * from coffee.CardStatuses;
+
+INSERT INTO coffee.CardStatuses VALUES ('Activated');
+INSERT INTO coffee.CardStatuses VALUES ('Issued');
+INSERT INTO coffee.CardStatuses VALUES ('Voided');
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS   coffee.CardTypes(
+	Type string
+) LOCATION 's3://ms-athena-data/empty/cardtypes'
+
+
+INSERT INTO coffee.CardTypes VALUES ('Ecard');
+INSERT INTO coffee.CardTypes VALUES ('Physical');
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS  coffee.PossibleBalances(
+	Balance string
+) LOCATION 's3://ms-athena-data/empty/possiblebalances'
+
+INSERT INTO PossibleBalances VALUES (500.00);
+INSERT INTO PossibleBalances VALUES (450.00);
+INSERT INTO PossibleBalances VALUES (400.00);
+INSERT INTO PossibleBalances VALUES (350.00);
+INSERT INTO PossibleBalances VALUES (300.00);
+INSERT INTO PossibleBalances VALUES (250.00);
+INSERT INTO PossibleBalances VALUES (200.00);
+INSERT INTO PossibleBalances VALUES (150.00);
+INSERT INTO PossibleBalances VALUES (125.00);
+INSERT INTO PossibleBalances VALUES (100.00);
+INSERT INTO PossibleBalances VALUES (75.00);
+INSERT INTO PossibleBalances VALUES (50.00);
+INSERT INTO PossibleBalances VALUES (25.00);
+INSERT INTO PossibleBalances VALUES (10.00);
+
+select * from coffee.PossibleBalances;
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS  coffee.PrintLocations(
+	Location string
+) LOCATION 's3://ms-athena-data/empty/printlocation'
+
+
+INSERT INTO PrintLocations VALUES ('New York City');
+INSERT INTO PrintLocations VALUES ('Seattle');
+INSERT INTO PrintLocations VALUES ('San Francisco');
+INSERT INTO PrintLocations VALUES ('Phoenix');
+
+select * from coffee.PrintLocations;
