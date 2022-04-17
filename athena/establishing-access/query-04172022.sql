@@ -2,7 +2,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS coffee.CardStatuses(
   Status Varchar(20))
 LOCATION 's3://ms-athena-data/'
 
-
+drop table coffee.CardStatuses
 
 CREATE EXTERNAL TABLE IF NOT EXISTS coffee.CardTypes(
   Type Varchar(20))
@@ -80,27 +80,28 @@ CREATE EXTERNAL TABLE IF NOT EXISTS coffee.ThirdPartyData(
 
 CREATE EXTERNAL TABLE IF NOT EXISTS `coffee`.`ThirdPartyData` (
   `cardnumber` string,
-  `merchantid` int,
+  `merchantid` string,
   `merchantname` string,
   `status` string,
-  `dateissued` date,
-  `dateactivated` date,
-  `datevoided` date,
-  `dateexpires` date,
+  `dateissued` timestamp,
+  `dateactivated` timestamp,
+  `datevoided` timestamp,
+  `dateexpires` timestamp,
   `cardtype` string,
-  `amountissued` double,
-  `balance` double,
+  `amountissued` string,
   `printlocation` string,
-  `dateprinted` date,
-  `cardversion` float,
+  `dateprinted` timestamp,
+  `cardversion` string,
   `authorizationcode` string
 )
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe' 
 WITH SERDEPROPERTIES (
   'serialization.format' = ',',
   'field.delim' = ','
-) LOCATION 's3://ms-athena-data/third-party/*'
+) LOCATION 's3://ms-athena-data/third-party/'
 TBLPROPERTIES ('has_encrypted_data'='false');
+
+DROP TABLE COFFEE.ThirdPartyData;
 
 SELECT * FROM COFFEE.ThirdPartyData;
 
