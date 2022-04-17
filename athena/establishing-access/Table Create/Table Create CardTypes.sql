@@ -4,8 +4,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[CardTypes](
-	[Type] [varchar](20) NOT NULL
-) ON [PRIMARY]
+CREATE TABLE coffee.CardTypes(
+	Type varchar(20) NOT NULL
+) ON PRIMARY
 
 GO

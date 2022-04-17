@@ -4,8 +4,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[PossibleBalances](
-	[Balance] [money] NOT NULL
-) ON [PRIMARY]
+CREATE TABLE coffee.PossibleBalances(
+	Balance money NOT NULL
+) ON PRIMARY
 
 GO

@@ -31,7 +31,7 @@ BEGIN
 		(CardNumber
 		, MerchantID
 		, MerchantName
-		, [Status]
+		, Status
 		, DateIssued
 		, DateActivated
 		, DateVoided
@@ -69,17 +69,17 @@ BEGIN
 	SET @CardNumber = @CardNumber + 13;
 END
 
-UPDATE ThirdPartyData SET DateActivated = NULL WHERE [Status] = 'Issued';
-UPDATE ThirdPartyData SET DateVoided = DATEADD(dd, (ROUND(((200 - 10 - 1) * RAND() + 1), 0)), DateActivated) WHERE [Status] = 'Voided';
+UPDATE ThirdPartyData SET DateActivated = NULL WHERE Status = 'Issued';
+UPDATE ThirdPartyData SET DateVoided = DATEADD(dd, (ROUND(((200 - 10 - 1) * RAND() + 1), 0)), DateActivated) WHERE Status = 'Voided';
 UPDATE ThirdPartyData SET DatePrinted = '2014-09-01 04:00:00' WHERE PrintLocation = 'San Francisco';
 UPDATE ThirdPartyData SET DatePrinted = '2014-08-12 12:00:00' WHERE PrintLocation = 'New York City';
 UPDATE ThirdPartyData SET DatePrinted = '2014-06-01 04:00:00' WHERE PrintLocation = 'Seattle';
 UPDATE ThirdPartyData SET DatePrinted = '2014-05-17 18:00:00' WHERE PrintLocation = 'Phoenix';
-UPDATE ThirdPartyData SET Balance = 0.00 WHERE [Status] = 'Voided';
+UPDATE ThirdPartyData SET Balance = 0.00 WHERE Status = 'Voided';
 WITH SampleData AS (SELECT *, NEWID() AS ID FROM ThirdPartyData)
-UPDATE SampleData SET Balance = (SELECT ROUND(CAST(Balance - RAND(CHECKSUM(NEWID())) * Balance AS MONEY),2)) WHERE [Status] = 'Activated' AND (SELECT ABS(CHECKSUM(ID) % 10)) > 1;
+UPDATE SampleData SET Balance = (SELECT ROUND(CAST(Balance - RAND(CHECKSUM(NEWID())) * Balance AS MONEY),2)) WHERE Status = 'Activated' AND (SELECT ABS(CHECKSUM(ID) % 10)) > 1;
 WITH SampleData AS (SELECT *, NEWID() AS ID FROM ThirdPartyData)
-UPDATE SampleData SET Balance = 0.00 WHERE [Status] = 'Activated' AND (SELECT ABS(CHECKSUM(ID) % 10)) > 5;
+UPDATE SampleData SET Balance = 0.00 WHERE Status = 'Activated' AND (SELECT ABS(CHECKSUM(ID) % 10)) > 5;
 
 INSERT INTO WiredBrainCoffeeData
 SELECT NEWID(), 1, TPD.CardNumber, TPD.Status, TPD.DateIssued, TPD.DateActivated, TPD.DateVoided, TPD.DateExpires, TPD.CardType, TPD.AmountIssued, TPD.Balance, '' 
