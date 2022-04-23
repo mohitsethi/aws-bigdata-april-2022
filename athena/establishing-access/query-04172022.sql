@@ -113,7 +113,7 @@ CREATE TABLE coffee.CardStatuses(
 
 CREATE EXTERNAL TABLE IF NOT EXISTS  coffee.CardStatuses(
   Status string
-) LOCATION 's3://ms-athena-data/empty/cardstatus'
+) LOCATION 's3://ms-athena-data/empty/'
 
 drop table coffee.CardStatuses;
 select * from coffee.CardStatuses;
@@ -125,7 +125,7 @@ INSERT INTO coffee.CardStatuses VALUES ('Voided');
 
 CREATE EXTERNAL TABLE IF NOT EXISTS   coffee.CardTypes(
 	Type string
-) LOCATION 's3://ms-athena-data/empty/cardtypes'
+) LOCATION 's3://ms-athena-data/empty/'
 
 
 INSERT INTO coffee.CardTypes VALUES ('Ecard');
@@ -133,8 +133,8 @@ INSERT INTO coffee.CardTypes VALUES ('Physical');
 
 
 CREATE EXTERNAL TABLE IF NOT EXISTS  coffee.PossibleBalances(
-	Balance string
-) LOCATION 's3://ms-athena-data/empty/possiblebalances'
+	Balance double
+) LOCATION 's3://ms-athena-data/empty/'
 
 INSERT INTO PossibleBalances VALUES (500.00);
 INSERT INTO PossibleBalances VALUES (450.00);
@@ -156,7 +156,7 @@ select * from coffee.PossibleBalances;
 
 CREATE EXTERNAL TABLE IF NOT EXISTS  coffee.PrintLocations(
 	Location string
-) LOCATION 's3://ms-athena-data/empty/printlocation'
+) LOCATION 's3://ms-athena-data/empty/'
 
 
 INSERT INTO PrintLocations VALUES ('New York City');
@@ -165,3 +165,31 @@ INSERT INTO PrintLocations VALUES ('San Francisco');
 INSERT INTO PrintLocations VALUES ('Phoenix');
 
 select * from coffee.PrintLocations;
+
+
+
+CREATE EXTERNAL TABLE IF NOT EXISTS  coffee.WiredBrainCoffeeData(
+	StoreID string,
+	CardNumber string,
+	Status string,
+	DateIssued timestamp,
+	DateActivated timestamp,
+	DateVoided timestamp,
+	DateExpires timestamp,
+	CardType string,
+	AmountIssued string,
+	Balance string,
+	Notes string
+) ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe' 
+WITH SERDEPROPERTIES (
+  'serialization.format' = ',',
+  'field.delim' = ','
+) LOCATION 's3://ms-athena-data/wiredbraincoffee/'
+TBLPROPERTIES ('has_encrypted_data'='false');
+
+
+drop table coffee.WiredBrainCoffeeData;
+
+select * from  coffee.WiredBrainCoffeeData;
+
+SELECT * FROM COFFEE.ThirdPartyData;
